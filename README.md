@@ -1,22 +1,25 @@
-# 🏥 Sistema de Cadastro de Pacientes - Clínica Médica
+# 🏥 Sistema de Gestão de Pacientes - Clínica Médica
 
-Este projeto é uma aplicação web desenvolvida para modernizar a gestão de uma clínica médica de pequeno porte, substituindo fichas físicas por um sistema digital seguro, centralizado e acessível.
-
-## 🚀 Tecnologias Utilizadas
-
-* **Frontend:** HTML5, Bootstrap 5 e Handlebars (HBS)
-* **Backend:** Node.js com Express
-* **Banco de Dados:** PostgreSQL hospedado no **Supabase**
-* **Hospedagem:** **Vercel**
-* **Arquitetura:** MVC (Model-View-Controller)
+Este sistema foi desenvolvido para resolver os problemas de organização de uma clínica médica, substituindo fichas físicas por uma aplicação web moderna, segura e eficiente.
 
 ---
 
-## 🛠️ Passo a Passo de Implantação
+## 🛠️ Tecnologias e Arquitetura
+O projeto utiliza o padrão **MVC (Model-View-Controller)** para garantir uma estrutura organizada e de fácil manutenção.
+
+* **Frontend:** Handlebars (HBS) & Bootstrap 5
+* **Backend:** Node.js & Express
+* **Banco de Dados:** PostgreSQL (via Supabase)
+* **Versionamento:** Git & GitHub
+* **Deploy:** Vercel
+
+---
+
+## 📋 Passo a Passo de Implantação
 
 ### 1. Configuração do Banco de Dados (Supabase)
-1. Criado um novo projeto no Supabase chamado `ClinicaMedica`.
-2. No **SQL Editor**, foi executado o script de criação da tabela:
+1. Criação do projeto `ClinicaMedica` no painel do Supabase.
+2. Execução do script SQL para criação da tabela de pacientes:
    ```sql
    CREATE TABLE pacientes (
      id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -25,74 +28,61 @@ Este projeto é uma aplicação web desenvolvida para modernizar a gestão de um
      email TEXT UNIQUE NOT NULL,
      criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
    );
-Configuração de Políticas de Segurança (RLS) para permitir INSERT e SELECT públicos.
 
-2. Conexão e Desenvolvimento
-Configuração do arquivo config/supabase.js utilizando a biblioteca @supabase/supabase-js.
 
-Utilização de variáveis de ambiente (.env) para proteger a SUPABASE_URL e a SUPABASE_KEY.
+3. Configuração de **Políticas de Segurança (RLS)** para permitir que a aplicação realize inserções e consultas.
 
-Desenvolvimento das rotas seguindo o padrão MVC:
+### 2. Desenvolvimento e Conexão
 
-Model: Gerencia a comunicação com o Supabase.
+1. **Conexão:** Configuração do cliente Supabase em `config/supabase.js`.
+2. **Segurança:** Uso de variáveis de ambiente (`.env`) para proteger as credenciais da API.
+3. **Estrutura MVC:**
+* **Model:** Gerencia as chamadas ao Supabase (`PacienteModel.js`).
+* **Controller:** Processa as requisições e formata dados (`PacienteController.js`).
+* **View:** Interfaces dinâmicas em Handlebars (`cadastro.hbs` e `listagem.hbs`).
 
-View: Templates HBS para Cadastro e Listagem.
 
-Controller: Lógica de negócio e formatação de dados.
 
-3. Versionamento com Git
-Inicialização do repositório local: git init.
+### 3. Versionamento com Git
 
-Criação do arquivo .gitignore para excluir node_modules e .env.
+Comandos utilizados para organizar o código:
 
-Commit dos arquivos:
+```bash
+# Inicialização
+git init
 
-Bash
+# Ignorar arquivos sensíveis (node_modules e .env)
+# Criado arquivo .gitignore
+
+# Commit inicial
 git add .
 git commit -m "feat: implementação do sistema MVC e integração Supabase"
-Vinculação e envio para o GitHub:
 
-Bash
+# Envio para Repositório Remoto
 git remote add origin [URL_DO_REPOSITORIO]
+git branch -M main
 git push -u origin main
-4. Publicação na Vercel
-Importação do repositório do GitHub na plataforma Vercel.
 
-Configuração das Environment Variables no painel da Vercel (copiando os valores do arquivo .env).
+```
 
-Deploy realizado com sucesso, gerando o link de produção.
+### 4. Publicação na Vercel
 
-5. Testes em Produção
-Cadastro: Testado o envio de formulário com sucesso e validação de e-mail único.
+1. Conexão do repositório GitHub com a plataforma **Vercel**.
+2. Configuração das **Environment Variables** (URL e KEY) no painel administrativo da Vercel.
+3. Deploy automático disparado pelo push no branch `main`.
 
-Listagem: Verificada a recuperação de dados em tempo real do banco PostgreSQL.
+### 5. Testes Finais de Funcionamento
 
-Interface: Verificada a responsividade com Bootstrap em dispositivos móveis.
-
-💻 Como Rodar o Projeto Localmente
-Clone o repositório:
-
-Bash
-git clone [URL_DO_REPOSITORIO]
-Instale as dependências:
-
-Bash
-npm install
-Configure o arquivo .env com suas chaves do Supabase.
-
-Inicie o servidor:
-
-Bash
-npm run dev
-Acesse: http://localhost:8800
-
+* ✅ **Cadastro:** Pacientes registrados com sucesso no banco de dados.
+* ✅ **Listagem:** Dados recuperados e exibidos com data formatada (PT-BR).
+* ✅ **Navegação:** Botões de fluxo entre telas operando corretamente.
 
 ---
 
-### Dicas Finais para a Entrega:
+## 🚀 Como Executar o Projeto
 
-1.  **O arquivo `.gitignore`:** Certifique-se de que ele existe e contém apenas a linha `node_modules` e `.env`. Isso é essencial para não "vazar" suas senhas no GitHub.
-2.  **O link da Vercel:** Não esqueça de colocar o link da aplicação rodando no final do README ou na descrição do repositório no GitHub.
-3.  **Compactação:** Para o link da prova, você deve selecionar todos os arquivos da pasta (exceto a pasta `node_modules`), clicar com o botão direito e escolher "Enviar para pasta compactada (zip)".
-
-Com esse README e a estrutura que montamos, você cobriu todos os pontos da Questão 1! Boa sorte na entrega!
+1. Clone o repositório.
+2. Instale as dependências: `npm install`.
+3. Crie um arquivo `.env` com suas credenciais.
+4. Execute o comando: `npm run dev`.
+5. Acesse: `http://localhost:8800`.
